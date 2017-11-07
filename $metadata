@@ -1,0 +1,585 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZSCP_HAYDUK_SRV" xml:lang="es" sap:schema-version="1">
+            <EntityType Name="Banks" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="BankId"/>
+                </Key>
+                <Property Name="BankId" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Id Banco" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BankName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Banco" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="DestinationsMP" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="DestinationMp"/>
+                </Key>
+                <Property Name="DestinationMp" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Destino MP" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="DocumentAttach" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="DocumentId"/>
+                </Key>
+                <Property Name="DocumentId" Type="Edm.String" Nullable="false" MaxLength="64" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="DocumentType" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Clase doc." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DocumentNr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Doc.compras" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DocumentCl" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mimetype" Type="Edm.String" Nullable="false" MaxLength="64" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CreationTime" Type="Edm.DateTime" Nullable="false" Precision="0" sap:unicode="false" sap:label="Hora modif." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="FileName" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Nombre archivo" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Usuario" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+            </EntityType>
+            <EntityType Name="DocumentHeader" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="DocumentType"/>
+                    <PropertyRef Name="DocumentNr"/>
+                    <PropertyRef Name="Uname"/>
+                </Key>
+                <Property Name="DocumentType" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Clase doc." sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="DocumentNr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Doc.compras" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="CreationDate" Type="Edm.DateTime" Nullable="false" Precision="7" sap:unicode="false" sap:label="Fecha creación" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Vendor" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Acreedor" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="VendorName" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Nombre 1" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Amount" Type="Edm.Decimal" Nullable="false" Precision="17" Scale="3" sap:unicode="false" sap:label="Valor neto" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Moneda" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Company" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Sociedad" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Centro" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RelCode" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Código liber." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CondicionPago" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Condición Pago" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Usuario" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ModeRel" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Option" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="DocumentItem" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="DocumentType"/>
+                    <PropertyRef Name="DocumentNr"/>
+                    <PropertyRef Name="Uname"/>
+                </Key>
+                <Property Name="DocumentType" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Clase doc." sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="DocumentNr" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Doc.compras" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="PosItem" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Posición" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Amount" Type="Edm.Decimal" Nullable="false" Precision="17" Scale="3" sap:unicode="false" sap:label="Valor neto" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Moneda" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Quantity" Type="Edm.Decimal" Nullable="false" Precision="15" Scale="3" sap:unicode="false" sap:label="Cantidad/Plan" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Unit" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="UM base" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="Code" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CodeText" Type="Edm.String" Nullable="false" MaxLength="40" sap:unicode="false" sap:label="Denominación" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Requisitioner" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Name of requisitioner" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CeCo" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Ceco" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Usuario" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="ModeRel" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Option" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="Shipowner" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ruc"/>
+                    <PropertyRef Name="Origin"/>
+                    <PropertyRef Name="Status"/>
+                    <PropertyRef Name="Request"/>
+                </Key>
+                <Property Name="Ruc" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Ruc" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Origin" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="SAP / Temp." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Estado" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Request" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Sollicitud" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BusinessName" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Razon Social" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DestinationMp" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Destino MP" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TpTaxpayer" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Tip. Contribuyente" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ShipownersName" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Nombre" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Industry" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Rubro" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Phone" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Telefono" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CellPhone" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Celular" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Moneda" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ToEmitDoc" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Tip.Doc. A emitir." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Padron" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Padrón" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Street" Type="Edm.String" Nullable="false" MaxLength="200" sap:unicode="false" sap:label="Calle / N°" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IntDep" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Interior o Dept." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Street4" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Calle 4" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Distric" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Distrito" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Population" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Población" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Region" Type="Edm.String" Nullable="false" MaxLength="35" sap:unicode="false" sap:label="Región" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RegistrationMode" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Tp. registro" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="1000" sap:unicode="false" sap:label="Mensaje" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Usuario" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Ubigeo" Type="Edm.String" Nullable="false" MaxLength="20" sap:unicode="false" sap:label="Ubigeo" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Direccion" Type="Edm.String" Nullable="false" MaxLength="200" sap:unicode="false" sap:label="Direccion" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ShipownerBanksSet" Relationship="ZSCP_HAYDUK_SRV.ShipownerToBanks" FromRole="FromRole_ShipownerToBanks" ToRole="ToRole_ShipownerToBanks"/>
+                <NavigationProperty Name="ShipownerBoatsSet" Relationship="ZSCP_HAYDUK_SRV.ShipownerToBoats" FromRole="FromRole_ShipownerToBoats" ToRole="ToRole_ShipownerToBoats"/>
+                <NavigationProperty Name="ShipownerContactPersonsSet" Relationship="ZSCP_HAYDUK_SRV.ShipownerToContact" FromRole="FromRole_ShipownerToContact" ToRole="ToRole_ShipownerToContact"/>
+                <NavigationProperty Name="ShipownerExistSAP" Relationship="ZSCP_HAYDUK_SRV.ShipownerToExistSAP" FromRole="FromRole_ShipownerToExistSAP" ToRole="ToRole_ShipownerToExistSAP"/>
+                <NavigationProperty Name="ShipownerEmailSet" Relationship="ZSCP_HAYDUK_SRV.ShipownerToMails" FromRole="FromRole_ShipownerToMails" ToRole="ToRole_ShipownerToMails"/>
+                <NavigationProperty Name="ShipownerRejected" Relationship="ZSCP_HAYDUK_SRV.ShipownerToRejected" FromRole="FromRole_ShipownerToRejected" ToRole="ToRole_ShipownerToRejected"/>
+                <NavigationProperty Name="ShipownerRequest" Relationship="ZSCP_HAYDUK_SRV.ShipownerToRequest" FromRole="FromRole_ShipownerToRequest" ToRole="ToRole_ShipownerToRequest"/>
+            </EntityType>
+            <EntityType Name="ShipownerBanks" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ruc"/>
+                    <PropertyRef Name="Origin"/>
+                    <PropertyRef Name="BankName"/>
+                    <PropertyRef Name="BankAccount"/>
+                    <PropertyRef Name="Request"/>
+                </Key>
+                <Property Name="Ruc" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Ruc Armador" sap:creatable="false" sap:updatable="false" sap:sortable="false"/>
+                <Property Name="Origin" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="SAP / Temp." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BankName" Type="Edm.String" Nullable="false" MaxLength="60" sap:unicode="false" sap:label="Banco" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BankAccount" Type="Edm.String" Nullable="false" MaxLength="18" sap:unicode="false" sap:label="N° de cuenta" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Request" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Solicitud" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Moneda" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TpAccount" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Tipo de cuenta" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BankCode" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Cod. de Banco" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ShipownerBoats" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ruc"/>
+                    <PropertyRef Name="Origin"/>
+                    <PropertyRef Name="Matricula"/>
+                    <PropertyRef Name="Request"/>
+                </Key>
+                <Property Name="Ruc" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Ruc Armador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Origin" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="SAP / Temp." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Matricula" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Cod. Matrícula" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Request" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Solicitud" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Embarcación" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Capacity" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Cap. de bodega" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Estado" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RegistrationMode" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Tp. Registro" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Destination" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="CHI / CHD" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ShipownerContactPersons" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ruc"/>
+                    <PropertyRef Name="Request"/>
+                </Key>
+                <Property Name="Ruc" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Ruc Armador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Request" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Solicitud" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Nombre" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Phone" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Teléfono" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="CellPhone" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Celular" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Origin" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="SAP / Temp." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Email" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:label="E-mail" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ShipownerEmail" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ruc"/>
+                    <PropertyRef Name="Request"/>
+                </Key>
+                <Property Name="Ruc" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Ruc" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Request" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Solicitud" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Origin" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="SAP / Temp." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Mail" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:label="E-Mail" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Status" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ShipownerExistSAP" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ruc"/>
+                    <PropertyRef Name="Status"/>
+                </Key>
+                <Property Name="Ruc" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Ruc" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Origin" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="SAP / Temp." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BusinessName" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Razon Social" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Request" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Solicitud" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Estado" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="ShipownerBanksSet" Relationship="ZSCP_HAYDUK_SRV.ShipownerExistToBanks" FromRole="FromRole_ShipownerExistToBanks" ToRole="ToRole_ShipownerExistToBanks"/>
+                <NavigationProperty Name="ShipownerBoatsSet" Relationship="ZSCP_HAYDUK_SRV.ShipownerExistToBoats" FromRole="FromRole_ShipownerExistToBoats" ToRole="ToRole_ShipownerExistToBoats"/>
+            </EntityType>
+            <EntityType Name="ShipownerRejected" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ruc"/>
+                    <PropertyRef Name="Status"/>
+                    <PropertyRef Name="Origin"/>
+                    <PropertyRef Name="Request"/>
+                </Key>
+                <Property Name="Ruc" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Ruc" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BusinessName" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Razon Social" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Estado" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Origin" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="SAP / Temp." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Request" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Solicitud" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="255" sap:unicode="false" sap:label="Mensaje" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Nombre usuario" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Shipowner" Relationship="ZSCP_HAYDUK_SRV.RejectedToShipowner" FromRole="FromRole_RejectedToShipowner" ToRole="ToRole_RejectedToShipowner"/>
+                <NavigationProperty Name="ShipownerBoatsSet" Relationship="ZSCP_HAYDUK_SRV.RejectedToShipownerBoats" FromRole="FromRole_RejectedToShipownerBoats" ToRole="ToRole_RejectedToShipownerBoats"/>
+            </EntityType>
+            <EntityType Name="ShipownerRequest" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ruc"/>
+                    <PropertyRef Name="Origin"/>
+                    <PropertyRef Name="Status"/>
+                    <PropertyRef Name="Request"/>
+                </Key>
+                <Property Name="Ruc" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Ruc" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Origin" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="SAP / Temp." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Estado" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Request" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Solicitud" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="BusinessName" Type="Edm.String" Nullable="false" MaxLength="100" sap:unicode="false" sap:label="Razon Social" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="DestinationMp" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Destino MP" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="2500" sap:unicode="false" sap:label="Mensaje" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="RegistrationMode" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Tp. registro" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Uname" Type="Edm.String" Nullable="false" MaxLength="12" sap:unicode="false" sap:label="Usuario" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="Shipowner" Relationship="ZSCP_HAYDUK_SRV.RequestToShipowner" FromRole="FromRole_RequestToShipowner" ToRole="ToRole_RequestToShipowner"/>
+                <NavigationProperty Name="ShipownerBanksSet" Relationship="ZSCP_HAYDUK_SRV.RequestToShipownerBanks" FromRole="FromRole_RequestToShipownerBanks" ToRole="ToRole_RequestToShipownerBanks"/>
+                <NavigationProperty Name="ShipownerBoatsSet" Relationship="ZSCP_HAYDUK_SRV.RequestToShipownerBoats" FromRole="FromRole_RequestToShipownerBoats" ToRole="ToRole_RequestToShipownerBoats"/>
+            </EntityType>
+            <EntityType Name="TpsAccount" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="TpAccounID"/>
+                </Key>
+                <Property Name="TpAccounID" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="ID Tipo de cuenta" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TpAccount" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Tipo de cuenta" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="TpAccountDescp" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Cod. Tipo de Cuenta" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="TpsCurrency" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="CurrencyID"/>
+                </Key>
+                <Property Name="CurrencyID" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Moneda ID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Currency" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Moneda" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="TpsEmitDoc" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="ToEmitDocID"/>
+                </Key>
+                <Property Name="ToEmitDocID" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="ID Tp.Doc Emitir" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="ToEmitDoc" Type="Edm.String" Nullable="false" MaxLength="25" sap:unicode="false" sap:label="Tip.Doc. A emitir." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ValidateAddBoats" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Ruc"/>
+                    <PropertyRef Name="Matricula"/>
+                </Key>
+                <Property Name="Ruc" Type="Edm.String" Nullable="false" MaxLength="16" sap:unicode="false" sap:label="Ruc Armador" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Matricula" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="Cod. Matrícula" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Origin" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="SAP / Temp." sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="IDMessage" Type="Edm.String" Nullable="false" MaxLength="1" sap:unicode="false" sap:label="Ok / Error" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="200" sap:unicode="false" sap:label="Message" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="RejectedToShipowner" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerRejected" Multiplicity="1" Role="FromRole_RejectedToShipowner"/>
+                <End Type="ZSCP_HAYDUK_SRV.Shipowner" Multiplicity="1" Role="ToRole_RejectedToShipowner"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_RejectedToShipowner">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Request"/>
+                    </Principal>
+                    <Dependent Role="ToRole_RejectedToShipowner">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Request"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="RejectedToShipownerBoats" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerRejected" Multiplicity="1" Role="FromRole_RejectedToShipownerBoats"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerBoats" Multiplicity="*" Role="ToRole_RejectedToShipownerBoats"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_RejectedToShipownerBoats">
+                        <PropertyRef Name="Request"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Ruc"/>
+                    </Principal>
+                    <Dependent Role="ToRole_RejectedToShipownerBoats">
+                        <PropertyRef Name="Request"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Ruc"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ShipownerToBanks" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.Shipowner" Multiplicity="1" Role="FromRole_ShipownerToBanks"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerBanks" Multiplicity="*" Role="ToRole_ShipownerToBanks"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ShipownerToBanks">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ShipownerToBanks">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ShipownerToBoats" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.Shipowner" Multiplicity="1" Role="FromRole_ShipownerToBoats"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerBoats" Multiplicity="*" Role="ToRole_ShipownerToBoats"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ShipownerToBoats">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ShipownerToBoats">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ShipownerToContact" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.Shipowner" Multiplicity="1" Role="FromRole_ShipownerToContact"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerContactPersons" Multiplicity="*" Role="ToRole_ShipownerToContact"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ShipownerToContact">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ShipownerToContact">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ShipownerToExistSAP" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.Shipowner" Multiplicity="1" Role="FromRole_ShipownerToExistSAP"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerExistSAP" Multiplicity="1" Role="ToRole_ShipownerToExistSAP"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ShipownerToExistSAP">
+                        <PropertyRef Name="Request"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Ruc"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ShipownerToExistSAP">
+                        <PropertyRef Name="Request"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Ruc"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ShipownerToMails" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.Shipowner" Multiplicity="1" Role="FromRole_ShipownerToMails"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerEmail" Multiplicity="*" Role="ToRole_ShipownerToMails"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ShipownerToMails">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ShipownerToMails">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ShipownerToRejected" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.Shipowner" Multiplicity="1" Role="FromRole_ShipownerToRejected"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerRejected" Multiplicity="1" Role="ToRole_ShipownerToRejected"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ShipownerToRejected">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ShipownerToRejected">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ShipownerToRequest" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.Shipowner" Multiplicity="1" Role="FromRole_ShipownerToRequest"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerRequest" Multiplicity="1" Role="ToRole_ShipownerToRequest"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ShipownerToRequest">
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ShipownerToRequest">
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="RequestToShipownerBanks" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerRequest" Multiplicity="1" Role="FromRole_RequestToShipownerBanks"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerBanks" Multiplicity="*" Role="ToRole_RequestToShipownerBanks"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_RequestToShipownerBanks">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Principal>
+                    <Dependent Role="ToRole_RequestToShipownerBanks">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="RequestToShipownerBoats" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerRequest" Multiplicity="1" Role="FromRole_RequestToShipownerBoats"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerBoats" Multiplicity="*" Role="ToRole_RequestToShipownerBoats"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_RequestToShipownerBoats">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Principal>
+                    <Dependent Role="ToRole_RequestToShipownerBoats">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="RequestToShipowner" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerRequest" Multiplicity="1" Role="FromRole_RequestToShipowner"/>
+                <End Type="ZSCP_HAYDUK_SRV.Shipowner" Multiplicity="1" Role="ToRole_RequestToShipowner"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_RequestToShipowner">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Principal>
+                    <Dependent Role="ToRole_RequestToShipowner">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Origin"/>
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Request"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ShipownerExistToBanks" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerExistSAP" Multiplicity="1" Role="FromRole_ShipownerExistToBanks"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerBanks" Multiplicity="*" Role="ToRole_ShipownerExistToBanks"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ShipownerExistToBanks">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Status"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ShipownerExistToBanks">
+                        <PropertyRef Name="Ruc"/>
+                        <PropertyRef Name="Status"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="ShipownerExistToBoats" sap:content-version="1">
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerExistSAP" Multiplicity="1" Role="FromRole_ShipownerExistToBoats"/>
+                <End Type="ZSCP_HAYDUK_SRV.ShipownerBoats" Multiplicity="*" Role="ToRole_ShipownerExistToBoats"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_ShipownerExistToBoats">
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Ruc"/>
+                    </Principal>
+                    <Dependent Role="ToRole_ShipownerExistToBoats">
+                        <PropertyRef Name="Status"/>
+                        <PropertyRef Name="Ruc"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZSCP_HAYDUK_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="BanksSet" EntityType="ZSCP_HAYDUK_SRV.Banks" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="DestinationsMPSet" EntityType="ZSCP_HAYDUK_SRV.DestinationsMP" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="DocumentAttachSet" EntityType="ZSCP_HAYDUK_SRV.DocumentAttach" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="DocumentHeaderSet" EntityType="ZSCP_HAYDUK_SRV.DocumentHeader" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="DocumentItemSet" EntityType="ZSCP_HAYDUK_SRV.DocumentItem" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ShipownerSet" EntityType="ZSCP_HAYDUK_SRV.Shipowner" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ShipownerBanksSet" EntityType="ZSCP_HAYDUK_SRV.ShipownerBanks" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ShipownerBoatsSet" EntityType="ZSCP_HAYDUK_SRV.ShipownerBoats" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ShipownerContactPersonsSet" EntityType="ZSCP_HAYDUK_SRV.ShipownerContactPersons" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ShipownerEmailSet" EntityType="ZSCP_HAYDUK_SRV.ShipownerEmail" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ShipownerExistSAPSet" EntityType="ZSCP_HAYDUK_SRV.ShipownerExistSAP" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ShipownerRejectedSet" EntityType="ZSCP_HAYDUK_SRV.ShipownerRejected" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ShipownerRequestSet" EntityType="ZSCP_HAYDUK_SRV.ShipownerRequest" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="TpsAccountSet" EntityType="ZSCP_HAYDUK_SRV.TpsAccount" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="TpsCurrencySet" EntityType="ZSCP_HAYDUK_SRV.TpsCurrency" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="TpsEmitDocSet" EntityType="ZSCP_HAYDUK_SRV.TpsEmitDoc" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ValidateAddBoatsSet" EntityType="ZSCP_HAYDUK_SRV.ValidateAddBoats" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <AssociationSet Name="ShipownerToExistSAPSet" Association="ZSCP_HAYDUK_SRV.ShipownerToExistSAP" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerSet" Role="FromRole_ShipownerToExistSAP"/>
+                    <End EntitySet="ShipownerExistSAPSet" Role="ToRole_ShipownerToExistSAP"/>
+                </AssociationSet>
+                <AssociationSet Name="ShipownerToMailsSet" Association="ZSCP_HAYDUK_SRV.ShipownerToMails" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerSet" Role="FromRole_ShipownerToMails"/>
+                    <End EntitySet="ShipownerEmailSet" Role="ToRole_ShipownerToMails"/>
+                </AssociationSet>
+                <AssociationSet Name="RejectedToShipownerSet" Association="ZSCP_HAYDUK_SRV.RejectedToShipowner" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerRejectedSet" Role="FromRole_RejectedToShipowner"/>
+                    <End EntitySet="ShipownerSet" Role="ToRole_RejectedToShipowner"/>
+                </AssociationSet>
+                <AssociationSet Name="ShipownerToBoatsSet" Association="ZSCP_HAYDUK_SRV.ShipownerToBoats" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerSet" Role="FromRole_ShipownerToBoats"/>
+                    <End EntitySet="ShipownerBoatsSet" Role="ToRole_ShipownerToBoats"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestToShipownerSet" Association="ZSCP_HAYDUK_SRV.RequestToShipowner" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerRequestSet" Role="FromRole_RequestToShipowner"/>
+                    <End EntitySet="ShipownerSet" Role="ToRole_RequestToShipowner"/>
+                </AssociationSet>
+                <AssociationSet Name="ShipownerExistToBanksSet" Association="ZSCP_HAYDUK_SRV.ShipownerExistToBanks" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerExistSAPSet" Role="FromRole_ShipownerExistToBanks"/>
+                    <End EntitySet="ShipownerBanksSet" Role="ToRole_ShipownerExistToBanks"/>
+                </AssociationSet>
+                <AssociationSet Name="ShipownerToContactSet" Association="ZSCP_HAYDUK_SRV.ShipownerToContact" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerSet" Role="FromRole_ShipownerToContact"/>
+                    <End EntitySet="ShipownerContactPersonsSet" Role="ToRole_ShipownerToContact"/>
+                </AssociationSet>
+                <AssociationSet Name="RejectedToShipownerBoatsSet" Association="ZSCP_HAYDUK_SRV.RejectedToShipownerBoats" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerRejectedSet" Role="FromRole_RejectedToShipownerBoats"/>
+                    <End EntitySet="ShipownerBoatsSet" Role="ToRole_RejectedToShipownerBoats"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestToShipownerBanksSet" Association="ZSCP_HAYDUK_SRV.RequestToShipownerBanks" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerRequestSet" Role="FromRole_RequestToShipownerBanks"/>
+                    <End EntitySet="ShipownerBanksSet" Role="ToRole_RequestToShipownerBanks"/>
+                </AssociationSet>
+                <AssociationSet Name="ShipownerToBanksSet" Association="ZSCP_HAYDUK_SRV.ShipownerToBanks" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerSet" Role="FromRole_ShipownerToBanks"/>
+                    <End EntitySet="ShipownerBanksSet" Role="ToRole_ShipownerToBanks"/>
+                </AssociationSet>
+                <AssociationSet Name="ShipownerToRejectedSet" Association="ZSCP_HAYDUK_SRV.ShipownerToRejected" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerSet" Role="FromRole_ShipownerToRejected"/>
+                    <End EntitySet="ShipownerRejectedSet" Role="ToRole_ShipownerToRejected"/>
+                </AssociationSet>
+                <AssociationSet Name="ShipownerToRequestSet" Association="ZSCP_HAYDUK_SRV.ShipownerToRequest" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerSet" Role="FromRole_ShipownerToRequest"/>
+                    <End EntitySet="ShipownerRequestSet" Role="ToRole_ShipownerToRequest"/>
+                </AssociationSet>
+                <AssociationSet Name="RequestToShipownerBoatsSet" Association="ZSCP_HAYDUK_SRV.RequestToShipownerBoats" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerRequestSet" Role="FromRole_RequestToShipownerBoats"/>
+                    <End EntitySet="ShipownerBoatsSet" Role="ToRole_RequestToShipownerBoats"/>
+                </AssociationSet>
+                <AssociationSet Name="ShipownerExistToBoatsSet" Association="ZSCP_HAYDUK_SRV.ShipownerExistToBoats" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ShipownerExistSAPSet" Role="FromRole_ShipownerExistToBoats"/>
+                    <End EntitySet="ShipownerBoatsSet" Role="ToRole_ShipownerExistToBoats"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZSCP_HAYDUK_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZSCP_HAYDUK_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
